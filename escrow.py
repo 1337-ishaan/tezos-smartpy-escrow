@@ -34,14 +34,14 @@ class Escrow(sp.Contract):
         sp.verify_equal(sp.address("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B") , self.data.participant.open_some()) 
         sp.send(self.data.participant.open_some(), sp.utils.nat_to_tez(self.data.prize)) 
         sp.send(self.data.organizer.open_some(), sp.balance) 
-        # self.resetContract() 
+        self.resetContract() 
  
     @sp.entry_point 
     def refundParticipant(self): 
         sp.verify_equal(sp.address("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B") , self.data.organizer.open_some()) 
         sp.send(self.data.participant.open_some(), sp.utils.nat_to_tez(self.data.prize / 10)) 
         sp.send(self.data.organizer.open_some(), sp.balance)  
-        # self.resetContract() 
+        self.resetContract() 
  
  
 @sp.add_test(name = "Escrow Test") 
@@ -57,15 +57,15 @@ def testEscrow():
  
     print(scenario, "file")
     # set organizer and prize 
-    # html += scenario.setOrganizer(prize=1).run(sender = sp.address("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B"), amount = sp.tez(2),valid=False).html() 
+    html += scenario.setOrganizer(prize=1).run(sender = sp.address("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B"), amount = sp.tez(2),valid=False).html() 
      
-    # #set participant 
-    # html += scenario.setParticipant("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B").run(amount = sp.utils.nat_to_tez(2)).html() 
+    #set participant 
+    html += scenario.setParticipant("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B").run(amount = sp.utils.nat_to_tez(2)).html() 
  
-    # #participant receives prize 
-    # html += scenario.confirmReceived().run(sp.address("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B")).html() 
+    #participant receives prize 
+    html += scenario.confirmReceived().run(sp.address("tz1i18rfRPzpyNidRnnASEBayg3BHB9MLH8B")).html() 
  
-    # #organizer 
-    # html += scenario.refundParticipant().run(sp.address(organizer)).html() 
+    #organizer 
+    html += scenario.refundParticipant().run(sp.address(organizer)).html() 
  
-    # setOutput(html)
+    setOutput(html)
